@@ -6,20 +6,36 @@ package practice.local.graphstructures;
  */
 public class App {
     public static void main(String[] args) {
+
         Graph g = new Graph();
+
         Vertex v1 = new Vertex(1);
         Vertex v2 = new Vertex(2);
         Vertex v3 = new Vertex(3);
-        Edge e1 = new Edge(v1, v2);
-        Edge e2 = new Edge(v2, v3);
-        g.addE(e1);
-        g.addE(e2);
-        g.addV(v1);
-        g.addV(v2);
-        g.addV(v3);
+        Vertex v4 = new Vertex(4);
 
-        System.out.println(g);
-        System.out.println("Edges: " + g.getE());
-        System.out.println("Vertices: " + g.getV());
+        g.addVertex(v1);
+        g.addVertex(v2);
+        g.addVertex(v3);
+        g.addEdge(v1, v2, 33);
+        g.addEdge(v1, v2, 1);
+        g.addEdge(v4, v2, 43);
+
+        System.out.println("\n\n\nConnections: ");
+        for (Vertex v : g.getV()) {
+            System.out.println(v.getValue() + ": " + v.getConnections());
+        }
+
+        System.out.println("\nConnecting from 1 to 4: " + v1.connectsTo(v4));
+        System.out.println("Connecting from 1 to 3: " + v1.connectsTo(v3));
+        System.out.println("Connecting from 1 to 2: " + v1.connectsTo(v2) + " with weight " + v1.weightTo(v2));
+        System.out.println("Connecting from 4 to 2: " + v4.connectsTo(v2) + " with weight " + v4.weightTo(v2));
+        System.out.println("Connecting from 2 to 1: " + v2.connectsTo(v1));
+        System.out.println("Connecting from 2 to 2: " + v2.connectsTo(v2) + " with weight " + v2.weightTo(v2));
+
+        Vertex s = new Vertex(111);
+        Vertex t = new Vertex(999);
+        FlowNetwork flowNet = new FlowNetwork(s, t);
+
     }
 }
