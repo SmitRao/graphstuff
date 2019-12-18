@@ -32,10 +32,13 @@ public class App {
         System.out.println("Connecting from 4 to 2: " + v4.connectsTo(v2) + " with weight " + v4.weightTo(v2));
         System.out.println("Connecting from 2 to 1: " + v2.connectsTo(v1));
         System.out.println("Connecting from 2 to 2: " + v2.connectsTo(v2) + " with weight " + v2.weightTo(v2));
+        
+        // floyd-warshall here...
 
-        Vertex s = new Vertex(111);
-        Vertex t = new Vertex(999);
-        FlowNetwork flowNet = new FlowNetwork(s, t);
+        // Vertex s = new Vertex(111);
+        // Vertex t = new Vertex(999);
+        // FlowNetwork flowNet = new FlowNetwork(s, t);
+
 
     }
 }
