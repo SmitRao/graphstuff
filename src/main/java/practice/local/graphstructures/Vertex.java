@@ -6,6 +6,7 @@ import java.util.Map;
 
 public class Vertex {
     private static int ordering = 1; // augmentation for maintaining an integer ordering for vertices
+    private int id;
     private int value;
     private HashSet<Vertex> connections;
     private Map<Vertex, Integer> edgeWeights;
@@ -14,6 +15,7 @@ public class Vertex {
         this.value = val;
         this.connections = new HashSet<Vertex>();
         this.edgeWeights = new HashMap<Vertex, Integer>();
+        this.id = Vertex.ordering;
         this.incrementOrdering();
     }
 
