@@ -6,12 +6,12 @@ import java.util.Set;
 
 public class Graph {
     private Set<Vertex> V;
-    private ArrayList<ArrayList<Vertex>> shortestPathDistances;
+    private ArrayList<ArrayList<Integer>> shortestPathDistances;
 
     public Graph() {
         super();
         this.V = new HashSet<Vertex>();
-        this.shortestPathDistances = new ArrayList<ArrayList<Vertex>>();
+        this.shortestPathDistances = new ArrayList<ArrayList<Integer>>();
     }
 
     public Set<Vertex> getV() {
@@ -37,12 +37,14 @@ public class Graph {
 
     /**
      * Uses Floyd-Warshall to find shortest path from vFrom to vTo.
+     * Return cost of shortest path from vFrom to vTo.
      */
-    public void ShortestPath(Vertex vFrom, Vertex vTo) {
-        FloydWarshall(vFrom, vTo, this.getNumVertices());
+    public int ShortestPath(Vertex vFrom, Vertex vTo) {
+        int distance = this.shortestPathDistances.get(vFrom).get(vTo);
+        return distance;
     }
 
-    public void FloydWarshall(Vertex vFrom, Vertex vTo, int numVertices) {
-        
+    public int FloydWarshall(Vertex vFrom, Vertex vTo, int numVertices) {
+        return 0;
     }
 }
