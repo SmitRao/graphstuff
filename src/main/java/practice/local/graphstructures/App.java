@@ -1,5 +1,7 @@
 package practice.local.graphstructures;
 
+import java.util.Map;
+
 /**
  * Experiments with graph stuff.
  *
@@ -31,14 +33,17 @@ public class App {
         System.out.println("Connecting from 1 to 2: " + v1.connectsTo(v2) + " with weight " + v1.weightTo(v2));
         System.out.println("Connecting from 4 to 2: " + v4.connectsTo(v2) + " with weight " + v4.weightTo(v2));
         System.out.println("Connecting from 2 to 1: " + v2.connectsTo(v1));
-        System.out.println("Connecting from 2 to 2: " + v2.connectsTo(v2) + " with weight " + v2.weightTo(v2));
-        
+        System.out.println("Connecting from 2 to 2: " + v2.connectsTo(v2) + " with weight " + v2.weightTo(v2) + "\n");
+
+        Map<Integer, Vertex> idLookups = g.getIdLookups();
+        for (int i = 1; i <= g.getNumVertices(); i++) {
+            System.out.println("Vertex at " + i + ": " + idLookups.get(i));
+        }
         // floyd-warshall here...
 
         // Vertex s = new Vertex(111);
         // Vertex t = new Vertex(999);
         // FlowNetwork flowNet = new FlowNetwork(s, t);
-
 
     }
 }

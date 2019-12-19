@@ -23,6 +23,10 @@ public class Vertex {
         Vertex.ordering++;
     }
 
+    public int getId() {
+        return this.id;
+    }
+
     public int getValue() {
         return this.value;
     }
