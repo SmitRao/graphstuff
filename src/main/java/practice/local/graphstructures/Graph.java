@@ -63,8 +63,10 @@ public class Graph {
 
         for (int i = 0; i < this.getNumVertices(); i++) {
             for (int edgeNodeId : this.idLookup.get(i).getConnections()) {
-
+                this.shortestPathDistances.get(i).set(edgeNodeId, this.idLookup.get(i).weightTo(edgeNodeId));
+                // initialize shortest paths from u to v with weight from u to v if edge exists
             }
+            this.shortestPathDistances.get(i).set(i, 0); // shortest path to same node is 0
         }
     }
 }
