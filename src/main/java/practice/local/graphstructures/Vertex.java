@@ -49,6 +49,13 @@ public class Vertex {
             return this.connections.contains(candidate.getId());
     }
 
+    public boolean connectsTo(int candidateId) {
+        if (this.getId() == candidateId)
+            return true;
+        else
+            return this.connections.contains(candidateId);
+    }
+
     /**
      * Returns weight from this vertex to candidate. Just hope no weight is
      * Integer.MAX_VALUE (2147483647) since this is the representation of an edge
@@ -62,6 +69,16 @@ public class Vertex {
             return 0;
         if (this.connectsTo(candidate)) {
             return this.edgeWeights.get(candidate.getId());
+        } else {
+            return Integer.MAX_VALUE;
+        }
+    }
+
+    public int weightTo(int candidateId) {
+        if (this.getId() == candidateId)
+            return 0;
+        if (this.connectsTo(candidateId)) {
+            return this.edgeWeights.get(candidateId);
         } else {
             return Integer.MAX_VALUE;
         }

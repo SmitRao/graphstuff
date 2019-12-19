@@ -56,7 +56,15 @@ public class Graph {
     public void FloydWarshall(Vertex vFrom, Vertex vTo, int numVertices) {
         this.shortestPathDistances = new ArrayList<ArrayList<Integer>>(this.getNumVertices());
         for (int i = 0; i < this.getNumVertices(); i++) {
-            this.shortestPathDistances.set(i, new ArrayList<Integer>(this.idLookup.get(i).getConnections()));
+            this.shortestPathDistances.set(i, new ArrayList<Integer>(this.getNumVertices()));
+            for (int j = 0; j < this.getNumVertices(); j++)
+                this.shortestPathDistances.get(i).set(j, Integer.MAX_VALUE);
+        } // initialize distances to infinity (i.e. Integer.MAX_VALUE)
+
+        for (int i = 0; i < this.getNumVertices(); i++) {
+            for (int edgeNodeId : this.idLookup.get(i).getConnections()) {
+
+            }
         }
     }
 }
