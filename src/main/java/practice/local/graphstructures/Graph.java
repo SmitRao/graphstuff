@@ -14,7 +14,6 @@ public class Graph {
     public Graph() {
         super();
         this.V = new HashSet<Vertex>();
-        this.shortestPathDistances = new ArrayList<ArrayList<Integer>>();
         this.idLookup = new HashMap<Integer, Vertex>();
     }
 
@@ -49,11 +48,15 @@ public class Graph {
      * shortest path from vFrom to vTo.
      */
     public int ShortestPath(Vertex vFrom, Vertex vTo) {
+        FloydWarshall(vFrom, vTo, this.getNumVertices());
         int distance = this.shortestPathDistances.get(vFrom.getId()).get(vTo.getId());
         return distance;
     }
 
-    public int FloydWarshall(Vertex vFrom, Vertex vTo, int numVertices) {
-        return 0;
+    public void FloydWarshall(Vertex vFrom, Vertex vTo, int numVertices) {
+        this.shortestPathDistances = new ArrayList<ArrayList<Integer>>(this.getNumVertices());
+        for (int i = 0; i < this.getNumVertices(); i++) {
+            this.shortestPathDistances.set(i, new ArrayList<Integer>(this.idLookup.get(i).getConnections()));
+        }
     }
 }

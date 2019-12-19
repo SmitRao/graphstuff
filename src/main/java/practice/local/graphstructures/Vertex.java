@@ -5,16 +5,16 @@ import java.util.HashSet;
 import java.util.Map;
 
 public class Vertex {
-    private static int ordering = 1; // augmentation for maintaining an integer ordering for vertices
+    private static int ordering = 0; // augmentation for maintaining an integer ordering for vertices
     private int id;
     private int value;
-    private HashSet<Vertex> connections;
-    private Map<Vertex, Integer> edgeWeights;
+    private HashSet<Integer> connections;
+    private Map<Integer, Integer> edgeWeights;
 
     public Vertex(int val) {
         this.value = val;
-        this.connections = new HashSet<Vertex>();
-        this.edgeWeights = new HashMap<Vertex, Integer>();
+        this.connections = new HashSet<Integer>();
+        this.edgeWeights = new HashMap<Integer, Integer>();
         this.id = Vertex.ordering;
         this.incrementOrdering();
     }
@@ -31,22 +31,22 @@ public class Vertex {
         return this.value;
     }
 
-    public HashSet<Vertex> getConnections() {
+    public HashSet<Integer> getConnections() {
         return connections;
     }
 
     public void connect(Vertex newConnection, int weight) {
         if (newConnection == this)
             return;
-        this.connections.add(newConnection);
-        this.edgeWeights.put(newConnection, weight);
+        this.connections.add(newConnection.getId());
+        this.edgeWeights.put(newConnection.getId(), weight);
     }
 
     public boolean connectsTo(Vertex candidate) {
         if (this == candidate)
             return true;
         else
-            return this.connections.contains(candidate);
+            return this.connections.contains(candidate.getId());
     }
 
     /**
@@ -61,7 +61,7 @@ public class Vertex {
         if (this == candidate)
             return 0;
         if (this.connectsTo(candidate)) {
-            return this.edgeWeights.get(candidate);
+            return this.edgeWeights.get(candidate.getId());
         } else {
             return Integer.MAX_VALUE;
         }

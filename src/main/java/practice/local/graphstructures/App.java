@@ -36,7 +36,7 @@ public class App {
         System.out.println("Connecting from 2 to 2: " + v2.connectsTo(v2) + " with weight " + v2.weightTo(v2) + "\n");
 
         Map<Integer, Vertex> idLookups = g.getIdLookups();
-        for (int i = 1; i <= g.getNumVertices(); i++) {
+        for (int i = 0; i < g.getNumVertices(); i++) {
             System.out.println("Vertex at " + i + ": " + idLookups.get(i));
         }
         // floyd-warshall here...
