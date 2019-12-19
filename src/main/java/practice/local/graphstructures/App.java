@@ -25,7 +25,9 @@ public class App {
 
         System.out.println("\n\n\nConnections: ");
         for (Vertex v : g.getV()) {
-            System.out.println(v.getValue() + ": " + v.getConnections());
+            System.out.println(v.getValue() + ":");
+            for (int connection : v.getConnections())
+                System.out.println(" " + g.getIdLookups().get(connection));
         }
 
         System.out.println("\nConnecting from 1 to 4: " + v1.connectsTo(v4));

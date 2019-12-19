@@ -53,8 +53,16 @@ public class Graph {
         return distance;
     }
 
+    /**
+     * Multi-source shortest path with any edge weight (assuming no negative cycle).
+     * 
+     * @param vFrom
+     * @param vTo
+     * @param numVertices
+     */
     public void FloydWarshall(Vertex vFrom, Vertex vTo, int numVertices) {
         this.shortestPathDistances = new ArrayList<ArrayList<Integer>>(this.getNumVertices());
+
         for (int i = 0; i < this.getNumVertices(); i++) {
             this.shortestPathDistances.set(i, new ArrayList<Integer>(this.getNumVertices()));
             for (int j = 0; j < this.getNumVertices(); j++)
@@ -68,5 +76,8 @@ public class Graph {
             }
             this.shortestPathDistances.get(i).set(i, 0); // shortest path to same node is 0
         }
+
+        // REAL STUFF -- FLOYD-WARSHALL:
+        
     }
 }
