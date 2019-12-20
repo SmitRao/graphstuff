@@ -11,11 +11,13 @@ public class Graph {
     protected final static int INF = 1073741823; // floor(Integer.MAX_VALUE / 2)...
     // anything higher than this value will cause incorrect output
 
+    protected static Graph currentGraph; // singleton instance for current graph, making old graphs
+    // uneditable due to vertex ordering issues
+
     private Set<Vertex> V;
     private ArrayList<ArrayList<Integer>> shortestPathDistances;
     private Map<Integer, Vertex> idLookup;
-    private boolean recomputeDistances; // we can short-circuit Floyd-Warshall if this is false!
-                                        // Good for amoritzation.
+    private boolean recomputeDistances; // we can short-circuit Floyd-Warshall if this is false! (Amortization)
 
     /**
      * Whenever a new graph is instantiated, old graphs cannot add more vertices!
@@ -23,6 +25,7 @@ public class Graph {
      */
     public Graph() {
         super();
+        Graph.currentGraph = this;
         this.recomputeDistances = true;
         Vertex.resetOrdering();
         this.V = new HashSet<Vertex>();
@@ -39,9 +42,11 @@ public class Graph {
     }
 
     public void addVertex(Vertex vertex) {
-        this.V.add(vertex);
-        this.idLookup.put(vertex.getId(), vertex);
-        this.recomputeDistances = true;
+        if (Graph.currentGraph == this) {
+            this.V.add(vertex);
+            this.idLookup.put(vertex.getId(), vertex);
+            this.recomputeDistances = true;
+        }
     }
 
     public Map<Integer, Vertex> getIdLookups() {
@@ -49,7 +54,8 @@ public class Graph {
     }
 
     public boolean addEdge(Vertex vFrom, Vertex vTo, int weight) {
-        if (this.V.contains(vFrom) && this.V.contains(vTo) && weight <= Graph.maxEdgeWeight) {
+        if (this.V.contains(vFrom) && this.V.contains(vTo) && weight <= Graph.maxEdgeWeight
+                && Graph.currentGraph == this) {
             vFrom.connect(vTo, weight);
             this.recomputeDistances = true;
             return true;
@@ -60,7 +66,7 @@ public class Graph {
 
     public boolean addEdge(int vFromId, int vToId, int weight) {
         if (this.idLookup.keySet().contains(vFromId) && this.idLookup.keySet().contains(vToId)
-                && weight <= Graph.maxEdgeWeight) {
+                && weight <= Graph.maxEdgeWeight && Graph.currentGraph == this) {
             this.idLookup.get(vFromId).connect(vToId, weight);
             this.recomputeDistances = true;
             return true;
