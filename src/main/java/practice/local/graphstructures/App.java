@@ -63,5 +63,29 @@ public class App {
 
         System.out.println("\nShortest path from 3 to 2... : " + g2.getShortestPath(3, 2));
         System.out.println("Shortest path from 3 to 3... : " + g2.getShortestPath(3, 3));
+
+        System.out.println("\n\nTest Floyd Warshall 2:\n\n");
+        Graph g3 = new Graph();
+        for (int i = 0; i < 8; i++) {
+            g3.addVertex(new Vertex(i));
+        }
+        g3.addEdge(0, 1, 7);
+        g3.addEdge(0, 2, 2);
+        g3.addEdge(0, 4, 2);
+        g3.addEdge(1, 0, 7);
+        g3.addEdge(1, 2, 1);
+        g3.addEdge(1, 5, 8);
+        g3.addEdge(1, 6, 3);
+        g3.addEdge(2, 0, 2);
+        g3.addEdge(3, 1, 2);
+        g3.addEdge(3, 7, 8);
+        g3.addEdge(4, 2, 9);
+        g3.addEdge(4, 6, 1);
+        g3.addEdge(5, 1, 1);
+        g3.addEdge(5, 3, 2);
+        g3.addEdge(5, 7, 9);
+        g3.addEdge(6, 5, 8);
+        g3.addEdge(6, 7, 6);
+        g3.getShortestPathDistanceMap();
     }
 }
