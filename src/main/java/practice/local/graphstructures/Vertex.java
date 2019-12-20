@@ -19,6 +19,10 @@ public class Vertex {
         this.incrementOrdering();
     }
 
+    protected static void resetOrdering() {
+        Vertex.ordering = 0;
+    }
+
     private void incrementOrdering() {
         Vertex.ordering++;
     }

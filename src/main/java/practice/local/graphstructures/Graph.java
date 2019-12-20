@@ -11,10 +11,16 @@ public class Graph {
     private ArrayList<ArrayList<Integer>> shortestPathDistances;
     private Map<Integer, Vertex> idLookup;
 
+    /**
+     * Whenever a new graph is instantiated, old graphs cannot add more vertices!
+     * This is a significant side-effect!
+     */
     public Graph() {
         super();
+        Vertex.resetOrdering();
         this.V = new HashSet<Vertex>();
-        this.idLookup = new HashMap<Integer, Vertex>();
+        this.shortestPathDistances = new ArrayList<ArrayList<Integer>>();
+        this.idLookup = new HashMap<Integer, Vertex>(); // id to vertex mapping
     }
 
     public Set<Vertex> getV() {
@@ -57,9 +63,16 @@ public class Graph {
      * shortest path from vFrom to vTo.
      */
     public int getShortestPath(Vertex vFrom, Vertex vTo) {
-        if (this.shortestPathDistances == null)
+        if (this.shortestPathDistances == null || this.shortestPathDistances.size() == 0)
             return -1;
         int distance = this.shortestPathDistances.get(vFrom.getId()).get(vTo.getId());
+        return distance;
+    }
+
+    public int getShortestPath(int vFromId, int vToId) {
+        if (this.shortestPathDistances == null || this.shortestPathDistances.size() == 0)
+            return -1;
+        int distance = this.shortestPathDistances.get(vFromId).get(vToId);
         return distance;
     }
 
@@ -71,8 +84,6 @@ public class Graph {
      * @param vTo
      */
     protected void updateFloydWarshallDistances() {
-        this.shortestPathDistances = new ArrayList<ArrayList<Integer>>(this.getNumVertices());
-
         for (int i = 0; i < this.getNumVertices(); i++) {
             this.shortestPathDistances.add(new ArrayList<Integer>(this.getNumVertices()));
             for (int j = 0; j < this.getNumVertices(); j++)

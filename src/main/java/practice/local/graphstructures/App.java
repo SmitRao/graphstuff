@@ -60,6 +60,6 @@ public class App {
 
         g2.updateFloydWarshallDistances();
         System.out.println(g2.getShortestPathDistanceMap());
-
+        System.out.println(g2.getShortestPath(3, 3));
     }
 }
