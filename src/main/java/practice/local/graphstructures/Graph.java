@@ -70,20 +70,13 @@ public class Graph {
     }
 
     public int getShortestPath(int vFromId, int vToId) {
-        if (this.shortestPathDistances == null || this.shortestPathDistances.size() == 0)
+        if (this.shortestPathDistances == null || this.shortestPathDistances.size() != this.getNumVertices())
             return -1;
         int distance = this.shortestPathDistances.get(vFromId).get(vToId);
         return distance;
     }
 
-    /**
-     * Updates shortestPathDistances using the Floyd-Warshall multi-source shortest
-     * path algorithm. Accetps all edge weights.
-     * 
-     * @param vFrom
-     * @param vTo
-     */
-    protected void updateFloydWarshallDistances() {
+    protected void initializeFloydWarshallDistances() {
         for (int i = 0; i < this.getNumVertices(); i++) {
             this.shortestPathDistances.add(new ArrayList<Integer>(this.getNumVertices()));
             for (int j = 0; j < this.getNumVertices(); j++)
@@ -97,19 +90,27 @@ public class Graph {
             }
             this.shortestPathDistances.get(i).set(i, 0); // shortest path to same node is 0
         }
+    }
 
-        // REAL STUFF -- FLOYD-WARSHALL:
-        // for (int k = 0; k < this.getNumVertices(); k++) {
-        //     for (int i = 0; i < this.getNumVertices(); i++) {
-        //         for (int j = 0; j < this.getNumVertices(); j++) {
-        //             if (this.shortestPathDistances.get(i).get(j) > this.shortestPathDistances.get(i).get(k)
-        //                     + this.shortestPathDistances.get(k).get(j)) {
-        //                 this.shortestPathDistances.get(i).set(j,
-        //                         this.shortestPathDistances.get(i).get(k) + this.shortestPathDistances.get(k).get(j));
-        //             }
-        //         }
-        //     }
-        // }
+    /**
+     * Updates shortestPathDistances using the Floyd-Warshall multi-source shortest
+     * path algorithm. Accetps all edge weights.
+     * 
+     */
+    protected void updateFloydWarshallDistances() {
+        if (this.shortestPathDistances == null || this.shortestPathDistances.size() != this.getNumVertices())
+            this.initializeFloydWarshallDistances();
+        for (int k = 0; k < this.getNumVertices(); k++) {
+            for (int i = 0; i < this.getNumVertices(); i++) {
+                for (int j = 0; j < this.getNumVertices(); j++) {
+                    if (this.shortestPathDistances.get(i).get(j) > this.shortestPathDistances.get(i).get(k)
+                            + this.shortestPathDistances.get(k).get(j)) {
+                        this.shortestPathDistances.get(i).set(j,
+                                this.shortestPathDistances.get(i).get(k) + this.shortestPathDistances.get(k).get(j));
+                    }
+                }
+            }
+        }
     }
 
     public ArrayList<ArrayList<Integer>> getShortestPathDistanceMap() {
