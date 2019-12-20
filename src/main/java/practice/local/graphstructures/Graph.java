@@ -7,8 +7,10 @@ import java.util.Map;
 import java.util.Set;
 
 public class Graph {
-    protected final static int maxEdgeWeight = 99999;
-    protected final static int INF = 100000;
+    protected final static int maxEdgeWeight = 999999999;
+    protected final static int INF = 1073741823; // floor(Integer.MAX_VALUE / 2)...
+    // anything higher than this value will cause incorrect output
+
     private Set<Vertex> V;
     private ArrayList<ArrayList<Integer>> shortestPathDistances;
     private Map<Integer, Vertex> idLookup;
@@ -47,7 +49,7 @@ public class Graph {
     }
 
     public boolean addEdge(Vertex vFrom, Vertex vTo, int weight) {
-        if (this.V.contains(vFrom) && this.V.contains(vTo)) {
+        if (this.V.contains(vFrom) && this.V.contains(vTo) && weight <= Graph.maxEdgeWeight) {
             vFrom.connect(vTo, weight);
             this.recomputeDistances = true;
             return true;
@@ -57,7 +59,8 @@ public class Graph {
     }
 
     public boolean addEdge(int vFromId, int vToId, int weight) {
-        if (this.idLookup.keySet().contains(vFromId) && this.idLookup.keySet().contains(vToId)) {
+        if (this.idLookup.keySet().contains(vFromId) && this.idLookup.keySet().contains(vToId)
+                && weight <= Graph.maxEdgeWeight) {
             this.idLookup.get(vFromId).connect(vToId, weight);
             this.recomputeDistances = true;
             return true;

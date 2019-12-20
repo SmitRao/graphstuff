@@ -40,14 +40,14 @@ public class Vertex {
     }
 
     public void connect(Vertex newConnection, int weight) {
-        if (newConnection == this)
+        if (newConnection == this || weight > Graph.maxEdgeWeight)
             return;
         this.connections.add(newConnection.getId());
         this.edgeWeights.put(newConnection.getId(), weight);
     }
 
     public void connect(int newConnectionId, int weight) {
-        if (newConnectionId == this.getId())
+        if (newConnectionId == this.getId() || weight > Graph.maxEdgeWeight)
             return;
         this.connections.add(newConnectionId);
         this.edgeWeights.put(newConnectionId, weight);
