@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Set;
 
 public class Graph {
@@ -152,11 +153,14 @@ public class Graph {
         return this.shortestPathDistances;
     }
 
-    public void bfs(Vertex source) {
-        // TODO
+    public ArrayList<Integer> bfs(Vertex source) {
+        ArrayList<Integer> traversalIds = new ArrayList<Integer>();
+        // Queue<Integer> processQueue = new Queue<Integer>();
+        return traversalIds;
     }
 
-    public void bfs(int sourceId) {
-        // TODO
+    public ArrayList<Integer> bfs(int sourceId) {
+        // short version... might be naive
+        return this.bfs(this.idLookup.get(sourceId));
     }
 }
