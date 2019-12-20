@@ -10,6 +10,8 @@ public class Graph {
     private Set<Vertex> V;
     private ArrayList<ArrayList<Integer>> shortestPathDistances;
     private Map<Integer, Vertex> idLookup;
+    private boolean recomputeDistances; // we can short-circuit Floyd-Warshall if this is false! 
+                                        // Good for amoritzation.
 
     /**
      * Whenever a new graph is instantiated, old graphs cannot add more vertices!
@@ -17,6 +19,7 @@ public class Graph {
      */
     public Graph() {
         super();
+        this.recomputeDistances = true;
         Vertex.resetOrdering();
         this.V = new HashSet<Vertex>();
         this.shortestPathDistances = new ArrayList<ArrayList<Integer>>();
@@ -34,6 +37,7 @@ public class Graph {
     public void addVertex(Vertex vertex) {
         this.V.add(vertex);
         this.idLookup.put(vertex.getId(), vertex);
+        this.recomputeDistances = true;
     }
 
     public Map<Integer, Vertex> getIdLookups() {
@@ -43,6 +47,7 @@ public class Graph {
     public boolean addEdge(Vertex vFrom, Vertex vTo, int weight) {
         if (this.V.contains(vFrom) && this.V.contains(vTo)) {
             vFrom.connect(vTo, weight);
+            this.recomputeDistances = true;
             return true;
         } else {
             return false;
@@ -52,6 +57,7 @@ public class Graph {
     public boolean addEdge(int vFromId, int vToId, int weight) {
         if (this.idLookup.keySet().contains(vFromId) && this.idLookup.keySet().contains(vToId)) {
             this.idLookup.get(vFromId).connect(vToId, weight);
+            this.recomputeDistances = true;
             return true;
         } else {
             return false;
@@ -63,8 +69,10 @@ public class Graph {
      * shortest path from vFrom to vTo.
      */
     public int getShortestPath(Vertex vFrom, Vertex vTo) {
-        if (this.shortestPathDistances == null || this.shortestPathDistances.size() == 0)
+        if (this.shortestPathDistances == null || this.shortestPathDistances.size() != this.getNumVertices())
             return -1;
+        if (this.recomputeDistances)
+            this.updateFloydWarshallDistances();
         int distance = this.shortestPathDistances.get(vFrom.getId()).get(vTo.getId());
         return distance;
     }
@@ -72,11 +80,15 @@ public class Graph {
     public int getShortestPath(int vFromId, int vToId) {
         if (this.shortestPathDistances == null || this.shortestPathDistances.size() != this.getNumVertices())
             return -1;
+        if (this.recomputeDistances)
+            this.updateFloydWarshallDistances();
         int distance = this.shortestPathDistances.get(vFromId).get(vToId);
         return distance;
     }
 
     protected void initializeFloydWarshallDistances() {
+        if (!this.recomputeDistances)
+            return;
         for (int i = 0; i < this.getNumVertices(); i++) {
             this.shortestPathDistances.add(new ArrayList<Integer>(this.getNumVertices()));
             for (int j = 0; j < this.getNumVertices(); j++)
@@ -98,6 +110,8 @@ public class Graph {
      * 
      */
     protected void updateFloydWarshallDistances() {
+        if (!this.recomputeDistances)
+            return;
         if (this.shortestPathDistances == null || this.shortestPathDistances.size() != this.getNumVertices())
             this.initializeFloydWarshallDistances();
         for (int k = 0; k < this.getNumVertices(); k++) {
@@ -111,9 +125,12 @@ public class Graph {
                 }
             }
         }
+        this.recomputeDistances = false;
     }
 
     public ArrayList<ArrayList<Integer>> getShortestPathDistanceMap() {
+        if (this.recomputeDistances)
+            this.updateFloydWarshallDistances();
         return this.shortestPathDistances;
     }
 }
