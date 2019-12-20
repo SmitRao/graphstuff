@@ -138,6 +138,19 @@ public class Graph {
     public ArrayList<ArrayList<Integer>> getShortestPathDistanceMap() {
         if (this.recomputeDistances)
             this.updateFloydWarshallDistances();
+        System.out.println("\n-----------------------");
+        for (ArrayList<Integer> row : this.shortestPathDistances) {
+            System.out.println(row);
+        }
+        System.out.println("-----------------------\n");
         return this.shortestPathDistances;
+    }
+
+    public void bfs(Vertex source) {
+        // TODO
+    }
+
+    public void bfs(int sourceId) {
+        // TODO
     }
 }

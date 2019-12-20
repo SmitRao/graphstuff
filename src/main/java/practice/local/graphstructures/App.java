@@ -25,17 +25,18 @@ public class App {
 
         System.out.println("\n\n\nConnections: ");
         for (Vertex v : g.getV()) {
-            System.out.println(v.getValue() + ":");
+            System.out.println(v.getId() + ":");
             for (int connection : v.getConnections())
-                System.out.println(" " + g.getIdLookups().get(connection));
+                System.out.println(" " + g.getIdLookups().get(connection) + " (id: "
+                        + g.getIdLookups().get(connection).getId() + ")");
         }
 
-        System.out.println("\nConnecting from 1 to 4: " + v1.connectsTo(v4));
-        System.out.println("Connecting from 1 to 3: " + v1.connectsTo(v3));
-        System.out.println("Connecting from 1 to 2: " + v1.connectsTo(v2) + " with weight " + v1.weightTo(v2));
-        System.out.println("Connecting from 4 to 2: " + v4.connectsTo(v2) + " with weight " + v4.weightTo(v2));
-        System.out.println("Connecting from 2 to 1: " + v2.connectsTo(v1));
-        System.out.println("Connecting from 2 to 2: " + v2.connectsTo(v2) + " with weight " + v2.weightTo(v2) + "\n");
+        System.out.println("\nConnecting from 0 to 3: " + v1.connectsTo(v4));
+        System.out.println("Connecting from 0 to 2: " + v1.connectsTo(v3));
+        System.out.println("Connecting from 0 to 1: " + v1.connectsTo(v2) + " with weight " + v1.weightTo(v2));
+        System.out.println("Connecting from 3 to 1: " + v4.connectsTo(v2) + " with weight " + v4.weightTo(v2));
+        System.out.println("Connecting from 1 to 0: " + v2.connectsTo(v1));
+        System.out.println("Connecting from 1 to 1: " + v2.connectsTo(v2) + " with weight " + v2.weightTo(v2) + "\n");
 
         Map<Integer, Vertex> idLookups = g.getIdLookups();
         for (int i = 0; i < g.getNumVertices(); i++) {
@@ -58,7 +59,7 @@ public class App {
         g2.addEdge(3, 1, -1);
 
         g2.updateFloydWarshallDistances();
-        System.out.println("\n\n" + g2.getShortestPathDistanceMap());
+        g2.getShortestPathDistanceMap();
 
         System.out.println("\nShortest path from 3 to 2... : " + g2.getShortestPath(3, 2));
         System.out.println("Shortest path from 3 to 3... : " + g2.getShortestPath(3, 3));
