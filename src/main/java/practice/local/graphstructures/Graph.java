@@ -99,17 +99,17 @@ public class Graph {
         }
 
         // REAL STUFF -- FLOYD-WARSHALL:
-        for (int k = 0; k < this.getNumVertices(); k++) {
-            for (int i = 0; i < this.getNumVertices(); i++) {
-                for (int j = 0; j < this.getNumVertices(); j++) {
-                    if (this.shortestPathDistances.get(i).get(j) > this.shortestPathDistances.get(i).get(k)
-                            + this.shortestPathDistances.get(k).get(j)) {
-                        this.shortestPathDistances.get(i).set(j,
-                                this.shortestPathDistances.get(i).get(k) + this.shortestPathDistances.get(k).get(j));
-                    }
-                }
-            }
-        }
+        // for (int k = 0; k < this.getNumVertices(); k++) {
+        //     for (int i = 0; i < this.getNumVertices(); i++) {
+        //         for (int j = 0; j < this.getNumVertices(); j++) {
+        //             if (this.shortestPathDistances.get(i).get(j) > this.shortestPathDistances.get(i).get(k)
+        //                     + this.shortestPathDistances.get(k).get(j)) {
+        //                 this.shortestPathDistances.get(i).set(j,
+        //                         this.shortestPathDistances.get(i).get(k) + this.shortestPathDistances.get(k).get(j));
+        //             }
+        //         }
+        //     }
+        // }
     }
 
     public ArrayList<ArrayList<Integer>> getShortestPathDistanceMap() {
