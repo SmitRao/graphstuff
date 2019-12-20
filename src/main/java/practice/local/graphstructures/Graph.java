@@ -7,10 +7,12 @@ import java.util.Map;
 import java.util.Set;
 
 public class Graph {
+    protected final static int maxEdgeWeight = 99999;
+    protected final static int INF = 100000;
     private Set<Vertex> V;
     private ArrayList<ArrayList<Integer>> shortestPathDistances;
     private Map<Integer, Vertex> idLookup;
-    private boolean recomputeDistances; // we can short-circuit Floyd-Warshall if this is false! 
+    private boolean recomputeDistances; // we can short-circuit Floyd-Warshall if this is false!
                                         // Good for amoritzation.
 
     /**
@@ -92,8 +94,8 @@ public class Graph {
         for (int i = 0; i < this.getNumVertices(); i++) {
             this.shortestPathDistances.add(new ArrayList<Integer>(this.getNumVertices()));
             for (int j = 0; j < this.getNumVertices(); j++)
-                this.shortestPathDistances.get(i).add(Integer.MAX_VALUE);
-        } // initialize distances to infinity (i.e. Integer.MAX_VALUE)
+                this.shortestPathDistances.get(i).add(Graph.INF);
+        } // initialize distances to infinity (i.e. Graph.INF)
 
         for (int i = 0; i < this.getNumVertices(); i++) {
             for (int edgeNodeId : this.idLookup.get(i).getConnections()) {
@@ -114,9 +116,11 @@ public class Graph {
             return;
         if (this.shortestPathDistances == null || this.shortestPathDistances.size() != this.getNumVertices())
             this.initializeFloydWarshallDistances();
-        for (int k = 0; k < this.getNumVertices(); k++) {
-            for (int i = 0; i < this.getNumVertices(); i++) {
-                for (int j = 0; j < this.getNumVertices(); j++) {
+
+        int i, j, k;
+        for (k = 0; k < this.getNumVertices(); k++) {
+            for (i = 0; i < this.getNumVertices(); i++) {
+                for (j = 0; j < this.getNumVertices(); j++) {
                     if (this.shortestPathDistances.get(i).get(j) > this.shortestPathDistances.get(i).get(k)
                             + this.shortestPathDistances.get(k).get(j)) {
                         this.shortestPathDistances.get(i).set(j,

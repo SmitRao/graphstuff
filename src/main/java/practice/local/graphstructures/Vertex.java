@@ -69,8 +69,8 @@ public class Vertex {
 
     /**
      * Returns weight from this vertex to candidate. Just hope no weight is
-     * Integer.MAX_VALUE (2147483647) since this is the representation of an edge
-     * not existing (hence having "infinite" weight).
+     * Graph.INF (100000) since this is the representation of an edge not existing
+     * (hence having "infinite" weight).
      * 
      * @param candidate
      * @return int weight from this to candidate
@@ -81,7 +81,7 @@ public class Vertex {
         if (this.connectsTo(candidate)) {
             return this.edgeWeights.get(candidate.getId());
         } else {
-            return Integer.MAX_VALUE;
+            return Graph.INF;
         }
     }
 
@@ -91,7 +91,7 @@ public class Vertex {
         if (this.connectsTo(candidateId)) {
             return this.edgeWeights.get(candidateId);
         } else {
-            return Integer.MAX_VALUE;
+            return Graph.INF;
         }
     }
 }

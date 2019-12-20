@@ -59,7 +59,7 @@ public class App {
         g2.addEdge(3, 1, -1);
 
         g2.updateFloydWarshallDistances();
-        System.out.println(g2.getShortestPathDistanceMap());
+        System.out.println("\n\n" + g2.getShortestPathDistanceMap());
 
         System.out.println("\nShortest path from 3 to 2: " + g2.getShortestPath(3, 2));
         System.out.println("Shortest path from 3 to 3: " + g2.getShortestPath(3, 3));
