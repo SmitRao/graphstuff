@@ -42,6 +42,13 @@ public class Vertex {
         this.edgeWeights.put(newConnection.getId(), weight);
     }
 
+    public void connect(int newConnectionId, int weight) {
+        if (newConnectionId == this.getId())
+            return;
+        this.connections.add(newConnectionId);
+        this.edgeWeights.put(newConnectionId, weight);
+    }
+
     public boolean connectsTo(Vertex candidate) {
         if (this == candidate)
             return true;

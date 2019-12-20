@@ -41,11 +41,24 @@ public class App {
         for (int i = 0; i < g.getNumVertices(); i++) {
             System.out.println("Vertex at " + i + ": " + idLookups.get(i));
         }
-        // floyd-warshall here...
 
         // Vertex s = new Vertex(111);
         // Vertex t = new Vertex(999);
         // FlowNetwork flowNet = new FlowNetwork(s, t);
+
+        System.out.println("\n\nTest Floyd Warshall:\n\n");
+        Graph g2 = new Graph();
+        for (int i = 0; i < 4; i++) {
+            g2.addVertex(new Vertex(i));
+        }
+        g2.addEdge(0, 2, -2);
+        g2.addEdge(1, 2, 3);
+        g2.addEdge(1, 0, 4);
+        g2.addEdge(2, 3, 2);
+        g2.addEdge(3, 1, -1);
+
+        g2.updateFloydWarshallDistances();
+        System.out.println(g2.getShortestPathDistanceMap());
 
     }
 }
