@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Queue;
+import java.util.LinkedList;
 import java.util.Set;
 
 public class Graph {
@@ -155,7 +156,26 @@ public class Graph {
 
     public ArrayList<Integer> bfs(Vertex source) {
         ArrayList<Integer> traversalIds = new ArrayList<Integer>();
-        // Queue<Integer> processQueue = new Queue<Integer>();
+
+        Queue<Integer> processQueue = new LinkedList<Integer>();
+        Set<Integer> visitedIds = new HashSet<Integer>(); // sacrifice performance for legibility (not using Array /
+                                                          // ArrayList of booleans with indices as ids)
+
+        processQueue.add(source.getId());
+        visitedIds.add(source.getId());
+
+        while (!processQueue.isEmpty()) {
+            int currentVertexId = processQueue.poll();
+            traversalIds.add(currentVertexId);
+
+            for (int connectingVertexId : this.idLookup.get(currentVertexId).getConnections()) {
+                if (!visitedIds.contains(connectingVertexId)) {
+                    processQueue.add(connectingVertexId);
+                    visitedIds.add(connectingVertexId);
+                }
+            }
+        }
+
         return traversalIds;
     }
 

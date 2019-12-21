@@ -87,5 +87,19 @@ public class App {
         g3.addEdge(6, 5, 8);
         g3.addEdge(6, 7, 6);
         g3.getShortestPathDistanceMap();
+
+        System.out.println("\n\nBFS: " + g3.bfs(0));
+
+        Graph g4 = new Graph();
+        for (int x = 0; x < 4; x++)
+            g4.addVertex(new Vertex(x));
+        g4.addEdge(0, 1, 2);
+        g4.addEdge(0, 2, 2);
+        g4.addEdge(1, 2, 2);
+        g4.addEdge(2, 0, 2);
+        g4.addEdge(2, 3, 2);
+        g4.addEdge(3, 3, 2);
+
+        System.out.println("\n\nBFS 2: " + g4.bfs(2));
     }
 }
