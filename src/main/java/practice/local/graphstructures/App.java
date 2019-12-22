@@ -126,7 +126,7 @@ public class App {
         Vertex s = new Vertex(0);
         Vertex t = new Vertex(1);
 
-        p("Source ID: " + s.getId());
+        p("\n\nSource ID: " + s.getId());
         p("Target ID: " + t.getId());
 
         net.setSource(s);
@@ -143,6 +143,8 @@ public class App {
         net.addEdge(2, 1, 1);
         net.addEdge(3, 1, 1);
         net.addEdge(4, 1, 1);
-        p(net.getMaxFlow());
+        p("Max flow: " + net.getMaxFlow());
+        p("BFS from source: " + net.bfs(s));
+
     }
 }
