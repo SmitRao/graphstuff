@@ -91,7 +91,7 @@ public class App {
         System.out.println("\n\nBFS: " + g3.bfs(0));
 
         Graph g4 = new Graph();
-        for (int x = 0; x < 4; x++)
+        for (int x = 0; x < 7; x++)
             g4.addVertex(new Vertex(x));
         g4.addEdge(0, 1, 2);
         g4.addEdge(0, 2, 2);
@@ -100,6 +100,11 @@ public class App {
         g4.addEdge(2, 3, 2);
         g4.addEdge(3, 3, 2);
 
-        System.out.println("\n\nBFS 2: " + g4.bfs(2));
+        g4.addEdge(3, 4, 2);
+        g4.addEdge(5, 0, 2);
+
+        System.out.println("\n\nBFS from 2: " + g4.bfs(2));
+        System.out.println("\n\nDFS from 2: " + g4.dfs(2));
+
     }
 }

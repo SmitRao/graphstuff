@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.LinkedList;
 import java.util.Set;
+import java.util.Stack;
 
 public class Graph {
     protected final static int maxEdgeWeight = 999999999;
@@ -154,6 +155,12 @@ public class Graph {
         return this.shortestPathDistances;
     }
 
+    /**
+     * Only reaches those nodes reachable from source.
+     * 
+     * @param source
+     * @return bfs traversal reachable from source
+     */
     public ArrayList<Integer> bfs(Vertex source) {
         ArrayList<Integer> traversalIds = new ArrayList<Integer>();
 
@@ -179,8 +186,57 @@ public class Graph {
         return traversalIds;
     }
 
+    /**
+     * Only reaches those nodes reachable from source.
+     * 
+     * @param source
+     * @return bfs traversal reachable from source
+     */
     public ArrayList<Integer> bfs(int sourceId) {
         // short version... might be naive
         return this.bfs(this.idLookup.get(sourceId));
     }
+
+    /**
+     * Only reaches nodes reachable from source
+     * 
+     * @param source
+     * @return dfs traversal reachable from source
+     */
+    public ArrayList<Integer> dfs(Vertex source) {
+        ArrayList<Integer> traversalIds = new ArrayList<Integer>();
+
+        Stack<Integer> processStack = new Stack<Integer>();
+        Set<Integer> visitedIds = new HashSet<Integer>(); // sacrifice performance for legibility (not using Array /
+                                                          // ArrayList of booleans with indices as ids)
+
+        processStack.push(source.getId());
+        visitedIds.add(source.getId());
+
+        while (!processStack.empty()) {
+            int currentVertexId = processStack.pop();
+            traversalIds.add(currentVertexId);
+
+            for (int connectingVertexId : this.idLookup.get(currentVertexId).getConnections()) {
+                if (!visitedIds.contains(connectingVertexId)) {
+                    processStack.push(connectingVertexId);
+                    visitedIds.add(connectingVertexId);
+                }
+            }
+        }
+
+        return traversalIds;
+    }
+
+    /**
+     * Only reaches nodes reachable from source
+     * 
+     * @param source
+     * @return dfs traversal reachable from source
+     */
+    public ArrayList<Integer> dfs(int sourceId) {
+        // short version... might be naive
+        return this.dfs(this.idLookup.get(sourceId));
+    }
+
 }
