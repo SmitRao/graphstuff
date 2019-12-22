@@ -3,13 +3,27 @@ package practice.local.graphstructures;
 public class FlowNetwork extends Graph {
     private Vertex source;
     private Vertex target;
-    private int currentFlow;
+    private int flow;
 
-    public FlowNetwork(Vertex s, Vertex t) {
+    public FlowNetwork() {
         super();
+        this.flow = 0;
+    }
+
+    public void setSource(Vertex s) {
         this.source = s;
+    }
+
+    public void setSource(int sourceId) {
+        this.source = this.getIdLookups().get(sourceId);
+    }
+
+    public void setTarget(Vertex t) {
         this.target = t;
-        this.currentFlow = s.connectsTo(t) ? s.weightTo(t) : 0;
+    }
+
+    public void setTarget(int targetId) {
+        this.target = this.getIdLookups().get(targetId);
     }
 
     public Vertex getSource() {
@@ -21,6 +35,16 @@ public class FlowNetwork extends Graph {
     }
 
     public int getCurrentFlow() {
-        return this.currentFlow;
+        return this.flow;
     }
+
+    public void edmondsKarp() {
+        
+    }
+
+    public int getMaxFlow() {
+        this.edmondsKarp();
+        return this.flow;
+    }
+
 }

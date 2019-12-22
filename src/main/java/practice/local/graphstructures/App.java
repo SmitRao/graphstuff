@@ -7,6 +7,19 @@ import java.util.Map;
  *
  */
 public class App {
+
+    public static void p(String s) {
+        System.out.println(s);
+    }
+
+    public static void p(int s) {
+        System.out.println(s);
+    }
+
+    public static void p(Object s) {
+        System.out.println(s);
+    }
+
     public static void main(String[] args) {
 
         Graph g = new Graph();
@@ -106,5 +119,30 @@ public class App {
         System.out.println("\n\nBFS from 2: " + g4.bfs(2));
         System.out.println("\n\nDFS from 2: " + g4.dfs(2));
 
+        // Test flow network
+
+        FlowNetwork net = new FlowNetwork();
+
+        Vertex s = new Vertex(0);
+        Vertex t = new Vertex(1);
+
+        p("Source ID: " + s.getId());
+        p("Target ID: " + t.getId());
+
+        net.setSource(s);
+        net.setTarget(t);
+
+        for (int i = 2; i < 5; i++) {
+            net.addVertex(new Vertex(i));
+        }
+
+        net.addEdge(0, 2, 1);
+        net.addEdge(0, 3, 1);
+        net.addEdge(0, 4, 1);
+
+        net.addEdge(2, 1, 1);
+        net.addEdge(3, 1, 1);
+        net.addEdge(4, 1, 1);
+        p(net.getMaxFlow());
     }
 }
